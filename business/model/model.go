@@ -1,4 +1,4 @@
-package models
+package model
 
 type CovidCase struct {
 	Age      *int    `json:"Age"`

@@ -3,7 +3,7 @@ package service_test
 import (
 	"covid-summary/business/covid/mocks"
 	"covid-summary/business/covid/service"
-	"covid-summary/business/models"
+	"covid-summary/business/model"
 	"errors"
 
 	"testing"
@@ -24,8 +24,8 @@ func TestGetCovidSummary(t *testing.T) {
 	senior := 70
 
 	repo := &mocks.Repository{}
-	repo.On("GetCovidSummary").Return(models.ResponseCovidCases{
-		Data: []models.CovidCase{
+	repo.On("GetCovidSummary").Return(model.ResponseCovidCases{
+		Data: []model.CovidCase{
 			{Province: &bangkok, Age: &childToAdult},
 			{Province: &bangkok, Age: &childToAdult},
 			{Province: &nonthaburi, Age: &adultToSenior},
@@ -58,7 +58,7 @@ func TestGetCovidSummaryError(t *testing.T) {
 	expectedErr := errors.New("error")
 
 	repo := &mocks.Repository{}
-	repo.On("GetCovidSummary").Return(models.ResponseCovidCases{}, expectedErr)
+	repo.On("GetCovidSummary").Return(model.ResponseCovidCases{}, expectedErr)
 
 	svc := service.NewCovidService(repo)
 	_, err := svc.GetCovidSummary()
@@ -71,7 +71,7 @@ func TestGetCovidSummaryError(t *testing.T) {
 // nil case
 func TestGetCovidSummaryEmpty(t *testing.T) {
 	repo := &mocks.Repository{}
-	repo.On("GetCovidSummary").Return(models.ResponseCovidCases{}, nil)
+	repo.On("GetCovidSummary").Return(model.ResponseCovidCases{}, nil)
 
 	svc := service.NewCovidService(repo)
 	res, err := svc.GetCovidSummary()

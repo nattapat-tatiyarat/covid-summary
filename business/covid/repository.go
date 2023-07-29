@@ -1,7 +1,7 @@
 package covid
 
-import "covid-summary/business/models"
+import "covid-summary/business/model"
 
 type Repository interface {
-	GetCovidSummary() (models.ResponseCovidCases, error)
+	GetCovidSummary() (model.ResponseCovidCases, error)
 }

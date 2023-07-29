@@ -2,7 +2,7 @@ package repository
 
 import (
 	"covid-summary/business/covid"
-	"covid-summary/business/models"
+	"covid-summary/business/model"
 	"fmt"
 
 	"github.com/go-resty/resty/v2"
@@ -18,15 +18,15 @@ func NewCovidRepository(client *resty.Client) covid.Repository {
 	}
 }
 
-func (r *CovidRepository) GetCovidSummary() (models.ResponseCovidCases, error) {
-	result := models.ResponseCovidCases{}
+func (r *CovidRepository) GetCovidSummary() (model.ResponseCovidCases, error) {
+	result := model.ResponseCovidCases{}
 
 	resp, err := r.client.R().SetResult(&result).Get("/devinterview/covid-cases.json")
 	if err != nil {
-		return models.ResponseCovidCases{}, err
+		return model.ResponseCovidCases{}, err
 	}
 	if resp.IsError() {
-		return models.ResponseCovidCases{}, fmt.Errorf("%s %d : %v", resp.Request.Method, resp.StatusCode(), resp)
+		return model.ResponseCovidCases{}, fmt.Errorf("%s %d : %v", resp.Request.Method, resp.StatusCode(), resp)
 	}
 
 	return result, nil

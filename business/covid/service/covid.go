@@ -2,7 +2,7 @@ package service
 
 import (
 	"covid-summary/business/covid"
-	"covid-summary/business/models"
+	"covid-summary/business/model"
 	"fmt"
 )
 
@@ -16,11 +16,11 @@ func NewCovidService(covidRepository covid.Repository) covid.Service {
 	}
 }
 
-func (s *CovidService) GetCovidSummary() (models.ResponseCovidSummary, error) {
+func (s *CovidService) GetCovidSummary() (model.ResponseCovidSummary, error) {
 	covidSummary, err := s.repo.GetCovidSummary()
 	if err != nil {
 		fmt.Println("Error GetCovidSummary : ", err.Error())
-		return models.ResponseCovidSummary{}, err
+		return model.ResponseCovidSummary{}, err
 	}
 
 	province, ageGroup := make(map[string]int), make(map[string]int)
@@ -52,7 +52,7 @@ func (s *CovidService) GetCovidSummary() (models.ResponseCovidSummary, error) {
 		}
 	}
 
-	res := models.ResponseCovidSummary{
+	res := model.ResponseCovidSummary{
 		Province: province,
 		AgeGroup: ageGroup,
 	}

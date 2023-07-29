@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	models "covid-summary/business/models"
+	model "covid-summary/business/model"
 
 	mock "github.com/stretchr/testify/mock"
 )
@@ -14,14 +14,14 @@ type Service struct {
 }
 
 // GetCovidSummary provides a mock function with given fields:
-func (_m *Service) GetCovidSummary() (models.ResponseCovidSummary, error) {
+func (_m *Service) GetCovidSummary() (model.ResponseCovidSummary, error) {
 	ret := _m.Called()
 
-	var r0 models.ResponseCovidSummary
-	if rf, ok := ret.Get(0).(func() models.ResponseCovidSummary); ok {
+	var r0 model.ResponseCovidSummary
+	if rf, ok := ret.Get(0).(func() model.ResponseCovidSummary); ok {
 		r0 = rf()
 	} else {
-		r0 = ret.Get(0).(models.ResponseCovidSummary)
+		r0 = ret.Get(0).(model.ResponseCovidSummary)
 	}
 
 	var r1 error
