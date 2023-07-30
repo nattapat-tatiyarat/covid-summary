@@ -36,7 +36,7 @@ func main() {
 	// init endpoint
 	endpoint.InitCovidEndpoint(r, client)
 
-	if err := r.Run("localhost:" + os.Getenv("PORT")); err != nil {
+	if err := r.Run(":" + os.Getenv("PORT")); err != nil {
 		log.Fatalf("start service failed : %s", err.Error())
 	}
 }
