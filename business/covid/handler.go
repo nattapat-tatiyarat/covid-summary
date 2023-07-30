@@ -17,7 +17,9 @@ func NewCovidHandler(covidService Service) *CovidHandler {
 }
 
 func (h *CovidHandler) GetCovidSummary(c *gin.Context) {
-	res, err := h.svc.GetCovidSummary()
+	ctx := c.Request.Context()
+
+	res, err := h.svc.GetCovidSummary(ctx)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

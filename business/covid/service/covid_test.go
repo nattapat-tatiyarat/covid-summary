@@ -1,6 +1,7 @@
 package service_test
 
 import (
+	"context"
 	"covid-summary/business/covid/mocks"
 	"covid-summary/business/covid/service"
 	"covid-summary/business/model"
@@ -37,8 +38,9 @@ func TestGetCovidSummary(t *testing.T) {
 		},
 	}, nil)
 
+	ctx := context.Background()
 	svc := service.NewCovidService(repo)
-	res, err := svc.GetCovidSummary()
+	res, err := svc.GetCovidSummary(ctx)
 
 	assert.NoError(t, err)
 
@@ -60,8 +62,9 @@ func TestGetCovidSummaryError(t *testing.T) {
 	repo := &mocks.Repository{}
 	repo.On("GetCovidSummary").Return(model.ResponseCovidCases{}, expectedErr)
 
+	ctx := context.Background()
 	svc := service.NewCovidService(repo)
-	_, err := svc.GetCovidSummary()
+	_, err := svc.GetCovidSummary(ctx)
 
 	assert.Error(t, err)
 	assert.EqualError(t, err, "error")
@@ -73,8 +76,9 @@ func TestGetCovidSummaryEmpty(t *testing.T) {
 	repo := &mocks.Repository{}
 	repo.On("GetCovidSummary").Return(model.ResponseCovidCases{}, nil)
 
+	ctx := context.Background()
 	svc := service.NewCovidService(repo)
-	res, err := svc.GetCovidSummary()
+	res, err := svc.GetCovidSummary(ctx)
 
 	assert.NoError(t, err)
 	assert.Empty(t, res.Province)

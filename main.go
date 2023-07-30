@@ -16,9 +16,6 @@ func init() {
 }
 
 func main() {
-	// [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
-	gin.SetMode(gin.ReleaseMode)
-
 	// An Engine instance with the Logger and Recovery middleware already attached
 	r := gin.Default()
 
@@ -39,7 +36,7 @@ func main() {
 	// init endpoint
 	endpoint.InitCovidEndpoint(r, client)
 
-	if err := r.Run(":" + os.Getenv("PORT")); err != nil {
+	if err := r.Run("localhost:" + os.Getenv("PORT")); err != nil {
 		log.Fatalf("start service failed : %s", err.Error())
 	}
 }

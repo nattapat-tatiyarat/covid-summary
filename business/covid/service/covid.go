@@ -1,9 +1,12 @@
 package service
 
 import (
+	"context"
 	"covid-summary/business/covid"
 	"covid-summary/business/model"
 	"fmt"
+
+	"gorm.io/gorm/logger"
 )
 
 type CovidService struct {
@@ -16,10 +19,10 @@ func NewCovidService(covidRepository covid.Repository) covid.Service {
 	}
 }
 
-func (s *CovidService) GetCovidSummary() (model.ResponseCovidSummary, error) {
+func (s *CovidService) GetCovidSummary(ctx context.Context) (model.ResponseCovidSummary, error) {
 	covidSummary, err := s.repo.GetCovidSummary()
 	if err != nil {
-		fmt.Println("Error GetCovidSummary : ", err.Error())
+		logger.Default.Error(ctx, fmt.Sprintf("GetCovidSummary failed : %s", err.Error()))
 		return model.ResponseCovidSummary{}, err
 	}
 
